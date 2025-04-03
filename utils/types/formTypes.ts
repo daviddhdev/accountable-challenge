@@ -1,39 +1,40 @@
-import type { countries } from "../constants/countries";
+import type { COUNTRIES } from "../constants/countries";
+import type { FORM_STEPS } from "../constants/formSteps";
 
-export type FormStep = 1 | 2 | 3 | 4 | 5 | 6;
+export type FormStep = (typeof FORM_STEPS)[keyof typeof FORM_STEPS];
 
-type CountryCode = keyof typeof countries;
+type CountryCode = keyof typeof COUNTRIES;
 
 type USAFields = {
-  country: typeof countries.USA.code;
+  country: typeof COUNTRIES.USA.code;
   socialSecurityNumber: string;
   state: string;
   zipCode: string;
 };
 
 type UAEFields = {
-  country: typeof countries.UAE.code;
+  country: typeof COUNTRIES.UAE.code;
   emiratesId: string;
   visaType: string;
   city: string;
 };
 
 type IndiaFields = {
-  country: typeof countries.IND.code;
+  country: typeof COUNTRIES.IND.code;
   aadhaarNumber: string;
   state: string;
   pinCode: string;
 };
 
 type GermanyFields = {
-  country: typeof countries.DEU.code;
+  country: typeof COUNTRIES.DEU.code;
   taxId: string;
   bundesland: string;
   postal: string;
 };
 
 type CanadaFields = {
-  country: typeof countries.CAN.code;
+  country: typeof COUNTRIES.CAN.code;
   sin: string;
   province: string;
   postalCode: string;

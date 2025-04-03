@@ -1,0 +1,8 @@
+export const FORM_STEPS = {
+  COUNTRY_INFO: 1,
+  CONDITIONAL_INFO_1: 2,
+  CONDITIONAL_INFO_2: 3,
+  CONDITIONAL_INFO_3: 4,
+  IMAGE_UPLOAD: 5,
+  REVIEW: 6,
+} as const;
