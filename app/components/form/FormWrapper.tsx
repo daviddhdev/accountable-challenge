@@ -13,7 +13,7 @@ import { UploadImage } from "./UploadImage";
 
 //This will change later so we can read the values from the local storage
 const DEFAULTS: MultiForm = {
-  step: 1,
+  step: 5,
   country: "USA",
   image: "",
   socialSecurityNumber: "",
