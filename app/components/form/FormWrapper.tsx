@@ -1,9 +1,15 @@
 "use client";
 
+import { FORM_STEPS } from "@/utils/constants/formSteps";
+import { getRequiredFieldsForStep } from "@/utils/functions/getRequiredFieldsForStep";
 import { getNextStep } from "@/utils/functions/handleSteps";
 import type { MultiForm } from "@/utils/types/formTypes";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { GoBackButton } from "../utils/GoBackButton";
+import { ConditionalFields } from "./ConditionalFields";
+import { CountrySelection } from "./CountrySelection";
+import { ReviewAndSubmition } from "./ReviewAndSubmition";
+import { UploadImage } from "./UploadImage";
 
 //This will change later so we can read the values from the local storage
 const DEFAULTS: MultiForm = {
@@ -18,18 +24,51 @@ const DEFAULTS: MultiForm = {
 export const FormWrapper = () => {
   const methods = useForm<MultiForm>({
     defaultValues: DEFAULTS,
+    mode: "onChange",
   });
-  const { handleSubmit, setValue, getValues } = methods;
-  const onSubmit: SubmitHandler<MultiForm> = (data) => console.log(data);
+  const {
+    handleSubmit,
+    setValue,
+    getValues,
+    trigger,
+    formState: { errors },
+  } = methods;
+  const onSubmit: SubmitHandler<MultiForm> = (data) => {
+    console.log(data);
+    console.log("form submitted");
+  };
+  const currentStep = getValues("step");
+  const currentCountry = getValues("country");
+  const handleNextStep = async () => {
+    const isStepValid = await trigger();
+    if (isStepValid) {
+      setValue("step", getNextStep(getValues("step")));
+    }
+  };
+  const requiredFields = getRequiredFieldsForStep(currentStep, currentCountry);
+  const hasErrors = requiredFields.some(
+    (field) => errors[field as keyof MultiForm]
+  );
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <GoBackButton />
-        <button
-          onClick={() => setValue("step", getNextStep(getValues("step")))}
-        >
-          Next
-        </button>
+        <CountrySelection />
+        <ConditionalFields />
+        <UploadImage />
+        <ReviewAndSubmition />
+        {currentStep !== FORM_STEPS.REVIEW && (
+          <div>
+            {hasErrors && (
+              <p className="text-red-500 mb-2">
+                Please fill in all required fields before proceeding
+              </p>
+            )}
+            <button type="button" onClick={handleNextStep} disabled={hasErrors}>
+              Next
+            </button>
+          </div>
+        )}
       </form>
     </FormProvider>
   );

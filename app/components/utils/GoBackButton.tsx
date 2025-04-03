@@ -21,5 +21,9 @@ export const GoBackButton = () => {
   }, [step]);
 
   if (!isVisible) return null;
-  return <button onClick={goBack}>Go Back</button>;
+  return (
+    <button type="button" onClick={goBack}>
+      Go Back
+    </button>
+  );
 };

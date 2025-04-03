@@ -1,54 +1,45 @@
-import type { COUNTRIES } from "../constants/countries";
 import type { FORM_STEPS } from "../constants/formSteps";
 
 export type FormStep = (typeof FORM_STEPS)[keyof typeof FORM_STEPS];
 
-type CountryCode = keyof typeof COUNTRIES;
-
-type USAFields = {
-  country: typeof COUNTRIES.USA.code;
+export type USAFields = {
   socialSecurityNumber: string;
   state: string;
   zipCode: string;
 };
 
-type UAEFields = {
-  country: typeof COUNTRIES.UAE.code;
+export type UAEFields = {
   emiratesId: string;
   visaType: string;
   city: string;
 };
 
-type IndiaFields = {
-  country: typeof COUNTRIES.IND.code;
+export type IndiaFields = {
   aadhaarNumber: string;
   state: string;
   pinCode: string;
 };
 
-type GermanyFields = {
-  country: typeof COUNTRIES.DEU.code;
+export type GermanyFields = {
   taxId: string;
   bundesland: string;
-  postal: string;
+  postalCode: string;
 };
 
-type CanadaFields = {
-  country: typeof COUNTRIES.CAN.code;
+export type CanadaFields = {
   sin: string;
   province: string;
   postalCode: string;
 };
 
 type CountryFields =
-  | USAFields
-  | UAEFields
-  | IndiaFields
-  | GermanyFields
-  | CanadaFields;
+  | (USAFields & { country: "USA" })
+  | (UAEFields & { country: "UAE" })
+  | (IndiaFields & { country: "IND" })
+  | (GermanyFields & { country: "DEU" })
+  | (CanadaFields & { country: "CAN" });
 
 export type MultiForm = {
   step: FormStep;
-  country: CountryCode;
   image: string;
 } & CountryFields;
