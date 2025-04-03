@@ -1,71 +1,97 @@
 import type { MultiForm } from "@/utils/types/formTypes";
 import { useFormContext } from "react-hook-form";
+import { InputField } from "../../utils/InputField";
 
 export const ConditionalFields1 = () => {
-  const { register, watch } = useFormContext<MultiForm>();
+  const { watch } = useFormContext<MultiForm>();
   const country = watch("country");
+
   if (country === "USA")
     return (
       <div>
-        <label htmlFor="socialSecurityNumber">Social Security Number</label>
-        <input
-          type="text"
-          id="socialSecurityNumber"
-          {...register("socialSecurityNumber", {
-            required: "Social Security Number is required",
-          })}
+        <InputField
+          name="socialSecurityNumber"
+          label="Social Security Number"
+          required
+          validation={{
+            pattern: {
+              value:
+                /^(\d{3}[-]?\d{2}[-]?\d{4}|[A-Z]{3}[-]?[A-Z]{2}[-]?[A-Z]{4})$/,
+              message: "Please enter a valid SSN (XXX-XX-XXXX)",
+            },
+          }}
         />
       </div>
     );
+
   if (country === "UAE")
     return (
       <div>
-        <label htmlFor="emiratesId">Emirates ID</label>
-        <input
-          type="text"
-          id="emiratesId"
-          {...register("emiratesId", {
-            required: "Emirates ID is required",
-          })}
+        <InputField
+          name="emiratesId"
+          label="Emirates ID"
+          required
+          validation={{
+            pattern: {
+              value: /^784-[A-Z]{4}-[A-Z]{7}-[A-Z]{1}$/,
+              message: "Please enter a valid Emirates ID (784-XXXX-XXXXXXX-X)",
+            },
+          }}
         />
       </div>
     );
+
   if (country === "IND")
     return (
       <div>
-        <label htmlFor="aadhaarNumber">Aadhaar Number</label>
-        <input
-          type="text"
-          id="aadhaarNumber"
-          {...register("aadhaarNumber", {
-            required: "Aadhaar Number is required",
-          })}
+        <InputField
+          name="aadhaarNumber"
+          label="Aadhaar Number"
+          required
+          validation={{
+            pattern: {
+              value: /^\d{12}$/,
+              message: "Please enter a valid 12-digit Aadhaar Number",
+            },
+          }}
         />
       </div>
     );
+
   if (country === "DEU")
     return (
       <div>
-        <label htmlFor="taxId">Tax ID</label>
-        <input
-          type="text"
-          id="taxId"
-          {...register("taxId", {
-            required: "Tax ID is required",
-          })}
+        <InputField
+          name="taxId"
+          label="Tax ID"
+          required
+          validation={{
+            pattern: {
+              value: /^\d{11}$/,
+              message: "Please enter a valid 11-digit Tax ID",
+            },
+          }}
         />
       </div>
     );
+
   if (country === "CAN")
     return (
       <div>
-        <label htmlFor="sin">SIN</label>
-        <input
-          type="text"
-          id="sin"
-          {...register("sin", { required: "SIN is required" })}
+        <InputField
+          name="sin"
+          label="SIN"
+          required
+          validation={{
+            pattern: {
+              value:
+                /^(\d{3}[-]?\d{3}[-]?\d{3}|[A-Z]{3}[-]?[A-Z]{3}[-]?[A-Z]{3})$/,
+              message: "Please enter a valid SIN (XXX-XXX-XXX)",
+            },
+          }}
         />
       </div>
     );
+
   return <p>Invalid country</p>;
 };

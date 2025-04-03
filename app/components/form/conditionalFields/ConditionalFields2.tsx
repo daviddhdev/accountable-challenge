@@ -1,61 +1,87 @@
 import type { MultiForm } from "@/utils/types/formTypes";
 import { useFormContext } from "react-hook-form";
+import { InputField } from "../../utils/InputField";
 
 export const ConditionalFields2 = () => {
-  const { register, watch } = useFormContext<MultiForm>();
+  const { watch } = useFormContext<MultiForm>();
   const country = watch("country");
   if (country === "USA")
     return (
       <div>
-        <label htmlFor="state">State</label>
-        <input
-          type="text"
-          id="state"
-          {...register("state", { required: "State is required" })}
+        <InputField
+          name="state"
+          label="State"
+          required
+          validation={{
+            maxLength: {
+              value: 2,
+              message: "State must be 2 characters",
+            },
+          }}
         />
       </div>
     );
   if (country === "UAE")
     return (
       <div>
-        <label htmlFor="visaType">Visa Type</label>
-        <input
-          type="text"
-          id="visaType"
-          {...register("visaType", { required: "Visa Type is required" })}
+        <InputField
+          name="visaType"
+          label="Visa Type"
+          required
+          validation={{
+            maxLength: {
+              value: 2,
+              message: "Visa Type must be 2 characters",
+            },
+          }}
         />
       </div>
     );
   if (country === "IND")
     return (
       <div>
-        <label htmlFor="state">State</label>
-        <input
-          type="text"
-          id="state"
-          {...register("state", { required: "State is required" })}
+        <InputField
+          name="state"
+          label="State"
+          required
+          validation={{
+            maxLength: {
+              value: 2,
+              message: "State must be 2 characters",
+            },
+          }}
         />
       </div>
     );
   if (country === "DEU")
     return (
       <div>
-        <label htmlFor="bundesland">Bundesland</label>
-        <input
-          type="text"
-          id="bundesland"
-          {...register("bundesland", { required: "Bundesland is required" })}
+        <InputField
+          name="bundesland"
+          label="Bundesland"
+          required
+          validation={{
+            maxLength: {
+              value: 2,
+              message: "Bundesland must be 2 characters",
+            },
+          }}
         />
       </div>
     );
   if (country === "CAN")
     return (
       <div>
-        <label htmlFor="province">Province</label>
-        <input
-          type="text"
-          id="province"
-          {...register("province", { required: "Province is required" })}
+        <InputField
+          name="province"
+          label="Province"
+          required
+          validation={{
+            maxLength: {
+              value: 2,
+              message: "Province must be 2 characters",
+            },
+          }}
         />
       </div>
     );

@@ -1,61 +1,87 @@
 import type { MultiForm } from "@/utils/types/formTypes";
 import { useFormContext } from "react-hook-form";
+import { InputField } from "../../utils/InputField";
 
 export const ConditionalFields3 = () => {
-  const { register, watch } = useFormContext<MultiForm>();
+  const { watch } = useFormContext<MultiForm>();
   const country = watch("country");
   if (country === "USA")
     return (
       <div>
-        <label htmlFor="zipCode">Zip Code</label>
-        <input
-          type="text"
-          id="zipCode"
-          {...register("zipCode", { required: "Zip Code is required" })}
+        <InputField
+          name="zipCode"
+          label="Zip Code"
+          required
+          validation={{
+            pattern: {
+              value: /^\d{5}$/,
+              message: "Zip Code must be 5 digits",
+            },
+          }}
         />
       </div>
     );
   if (country === "UAE")
     return (
       <div>
-        <label htmlFor="city">City</label>
-        <input
-          type="text"
-          id="city"
-          {...register("city", { required: "City is required" })}
+        <InputField
+          name="city"
+          label="City"
+          required
+          validation={{
+            maxLength: {
+              value: 20,
+              message: "City must be less than 20 characters",
+            },
+          }}
         />
       </div>
     );
   if (country === "IND")
     return (
       <div>
-        <label htmlFor="pinCode">PIN Code</label>
-        <input
-          type="text"
-          id="pinCode"
-          {...register("pinCode", { required: "PIN Code is required" })}
+        <InputField
+          name="pinCode"
+          label="PIN Code"
+          required
+          validation={{
+            pattern: {
+              value: /^\d{6}$/,
+              message: "PIN Code must be 6 digits",
+            },
+          }}
         />
       </div>
     );
   if (country === "DEU")
     return (
       <div>
-        <label htmlFor="postalCode">Postal Code</label>
-        <input
-          type="text"
-          id="postalCode"
-          {...register("postalCode", { required: "Postal Code is required" })}
+        <InputField
+          name="postalCode"
+          label="Postal Code"
+          required
+          validation={{
+            pattern: {
+              value: /^\d{5}$/,
+              message: "Postal Code must be 5 digits",
+            },
+          }}
         />
       </div>
     );
   if (country === "CAN")
     return (
       <div>
-        <label htmlFor="postalCode">Postal Code</label>
-        <input
-          type="text"
-          id="postalCode"
-          {...register("postalCode", { required: "Postal Code is required" })}
+        <InputField
+          name="postalCode"
+          label="Postal Code"
+          required
+          validation={{
+            pattern: {
+              value: /^\d{5}$/,
+              message: "Postal Code must be 5 digits",
+            },
+          }}
         />
       </div>
     );
