@@ -7,11 +7,11 @@ export const ProgressIndicator = () => {
   const step = watch("step");
 
   return (
-    <div className="w-full rounded-full bg-gray-200">
+    <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
       <div
-        className="h-2 rounded-full bg-blue-500 duration-300"
+        className="h-full bg-primary transition-all duration-300 ease-in-out"
         style={{ width: `${(step / TOTAL_STEPS) * 100}%` }}
-      ></div>
+      />
     </div>
   );
 };

@@ -64,7 +64,12 @@ export const FormWrapper = () => {
         <ReviewAndSubmition />
         {currentStep !== FORM_STEPS.REVIEW && (
           <div>
-            <button type="button" onClick={handleNextStep} disabled={hasErrors}>
+            <button
+              type="button"
+              onClick={handleNextStep}
+              disabled={hasErrors}
+              className="inline-flex items-center py-2 text-sm font-medium text-secondary hover:text-foreground transition-colors duration-200"
+            >
               Next
             </button>
           </div>

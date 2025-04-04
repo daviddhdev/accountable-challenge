@@ -24,18 +24,25 @@ export const InputField = ({
   } = useFormContext();
 
   return (
-    <div className="mb-4">
-      <label htmlFor={name} className="block text-sm font-medium text-gray-700">
+    <div className="mb-6">
+      <label
+        htmlFor={name}
+        className="block text-sm font-medium text-foreground mb-1"
+      >
         {label}
-        {required && <span className="text-red-500">*</span>}
+        {required && <span className="text-error ml-1">*</span>}
       </label>
       <input
         id={name}
         type={type}
         placeholder={placeholder}
         className={clsx(
-          "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500",
-          errors[name] ? "border-red-500" : ""
+          "w-full px-3 py-2 rounded-md border",
+          "focus:ring-2 focus:ring-primary focus:border-transparent",
+          "transition-colors duration-200",
+          errors[name]
+            ? "border-error bg-error/5"
+            : "border-border hover:border-primary/50"
         )}
         {...register(name, {
           required: required ? `${label} is required` : false,
@@ -43,7 +50,7 @@ export const InputField = ({
         })}
       />
       {errors[name] && (
-        <p className="mt-1 text-sm text-red-500">
+        <p className="mt-1 text-sm text-error">
           {errors[name]?.message as string}
         </p>
       )}

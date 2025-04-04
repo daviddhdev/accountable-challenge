@@ -7,8 +7,13 @@ export const CountrySelection = () => {
   const step = watch("step");
   if (step !== FORM_STEPS.COUNTRY_INFO) return null;
   return (
-    <div>
-      <label htmlFor="country">Country *</label>
+    <div className="mb-6 mt-2">
+      <label
+        htmlFor="country"
+        className="block text-sm font-medium text-foreground mb-1"
+      >
+        Country <span className="text-error">*</span>
+      </label>
       <select
         {...register("country", {
           required: true,
@@ -20,6 +25,7 @@ export const CountrySelection = () => {
             });
           },
         })}
+        className="w-full px-3 py-2 rounded-md border border-border hover:border-primary/50 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-200"
         required
       >
         <option value="USA">United States of America</option>
