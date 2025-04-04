@@ -8,6 +8,7 @@ import type { MultiForm } from "@/utils/types/formTypes";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import useFormPersist from "react-hook-form-persist";
 import { GoBackButton } from "../utils/GoBackButton";
+import { ProgressIndicator } from "../utils/ProgressIndicator";
 import { ConditionalFields } from "./ConditionalFields";
 import { CountrySelection } from "./CountrySelection";
 import { ReviewAndSubmition } from "./ReviewAndSubmition";
@@ -55,6 +56,7 @@ export const FormWrapper = () => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <ProgressIndicator />
         <GoBackButton />
         <CountrySelection />
         <ConditionalFields />
