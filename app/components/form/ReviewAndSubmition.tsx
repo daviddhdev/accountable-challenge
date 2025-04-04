@@ -12,7 +12,9 @@ const COUNTRY_FIELDS = {
   CAN: ["sin", "province", "postalCode"],
 } as const;
 
-export const ReviewAndSubmition = () => {
+export const ReviewAndSubmition: React.FC<{
+  isSubmitted: boolean;
+}> = ({ isSubmitted }) => {
   const { watch, getValues } = useFormContext<MultiForm>();
   const step = watch("step");
   const country = getValues("country");
@@ -67,10 +69,11 @@ export const ReviewAndSubmition = () => {
       </div>
 
       <button
+        disabled={isSubmitted}
         type="submit"
-        className="w-full px-4 py-2 text-white bg-primary hover:bg-primary-hover rounded-md transition-colors duration-200"
+        className="w-full px-4 py-2 text-white bg-primary hover:bg-primary-hover rounded-md transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Submit Registration
+        {isSubmitted ? "Submitted" : "Submit Registration"}
       </button>
     </div>
   );

@@ -5,9 +5,11 @@ import { FORM_STEPS } from "@/utils/constants/formSteps";
 import { getRequiredFieldsForStep } from "@/utils/functions/getRequiredFieldsForStep";
 import { getNextStep } from "@/utils/functions/handleSteps";
 import type { MultiForm } from "@/utils/types/formTypes";
+import { useState } from "react";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import useFormPersist from "react-hook-form-persist";
 import { GoBackButton } from "../utils/GoBackButton";
+import { LoadingIndicator } from "../utils/LoadingIndicator";
 import { ProgressIndicator } from "../utils/ProgressIndicator";
 import { ConditionalFields } from "./ConditionalFields";
 import { CountrySelection } from "./CountrySelection";
@@ -15,6 +17,8 @@ import { ReviewAndSubmition } from "./ReviewAndSubmition";
 import { UploadImage } from "./UploadImage";
 
 export const FormWrapper = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const methods = useForm<MultiForm>({
     defaultValues: FORM_DEFAULT_VALUES as MultiForm,
     mode: "onChange",
@@ -49,19 +53,24 @@ export const FormWrapper = () => {
     }
   };
   const onSubmit: SubmitHandler<MultiForm> = (data) => {
-    console.log(data);
-    console.log("form submitted");
+    console.log("Submitted data", data);
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+    }, 3000);
   };
 
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
+        {isSubmitting && <LoadingIndicator />}
         <ProgressIndicator />
-        <GoBackButton />
+        {!isSubmitted && <GoBackButton />}
         <CountrySelection />
         <ConditionalFields />
         <UploadImage />
-        <ReviewAndSubmition />
+        <ReviewAndSubmition isSubmitted={isSubmitted} />
         {currentStep !== FORM_STEPS.REVIEW && (
           <div>
             <button
