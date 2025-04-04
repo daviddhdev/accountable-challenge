@@ -1,5 +1,6 @@
 "use client";
 
+import { FORM_DEFAULT_VALUES } from "@/utils/constants/formDefaultValues";
 import { FORM_STEPS } from "@/utils/constants/formSteps";
 import { getRequiredFieldsForStep } from "@/utils/functions/getRequiredFieldsForStep";
 import { getNextStep } from "@/utils/functions/handleSteps";
@@ -12,19 +13,9 @@ import { CountrySelection } from "./CountrySelection";
 import { ReviewAndSubmition } from "./ReviewAndSubmition";
 import { UploadImage } from "./UploadImage";
 
-//This will change later so we can read the values from the local storage
-const DEFAULTS: MultiForm = {
-  step: 1,
-  country: "USA",
-  image: "",
-  socialSecurityNumber: "",
-  state: "",
-  zipCode: "",
-};
-
 export const FormWrapper = () => {
   const methods = useForm<MultiForm>({
-    defaultValues: DEFAULTS,
+    defaultValues: FORM_DEFAULT_VALUES as MultiForm,
     mode: "onChange",
   });
 
@@ -71,11 +62,6 @@ export const FormWrapper = () => {
         <ReviewAndSubmition />
         {currentStep !== FORM_STEPS.REVIEW && (
           <div>
-            {hasErrors && (
-              <p className="text-red-500 mb-2">
-                Please fill in all required fields before proceeding
-              </p>
-            )}
             <button type="button" onClick={handleNextStep} disabled={hasErrors}>
               Next
             </button>
