@@ -1,14 +1,27 @@
 import { FORM_STEPS } from "@/utils/constants/formSteps";
 import NextImage from "next/image";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { useFormContext } from "react-hook-form";
 
 export const UploadImage = () => {
-  const { watch, setValue } = useFormContext();
-  const [error, setError] = useState<string | null>(null);
+  const {
+    watch,
+    setValue,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useFormContext();
   const step = watch("step");
   const image = watch("image");
+  useEffect(() => {
+    if (!image) {
+      setError("image", {
+        type: "required",
+        message: "Image is required",
+      });
+    }
+  }, [image, setError]);
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       const file = acceptedFiles[0];
@@ -17,19 +30,22 @@ export const UploadImage = () => {
 
       img.onload = () => {
         if (img.width > 600 || img.height > 600) {
-          setError("Image dimensions must be 600x600 pixels or smaller");
+          setError("image", {
+            type: "maxSize",
+            message: "Image dimensions must be 600x600 pixels or smaller",
+          });
           return;
         }
         //set image as base64
         const reader = new FileReader();
         reader.onload = () => {
-          setError(null);
+          clearErrors("image");
           setValue("image", reader.result as string);
         };
         reader.readAsDataURL(file);
       };
     },
-    [setValue]
+    [setValue, clearErrors, setError]
   );
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -40,7 +56,10 @@ export const UploadImage = () => {
     },
     onDropRejected: (error) => {
       console.log(error);
-      setError(error[0].errors[0].message);
+      setError("image", {
+        type: "fileType",
+        message: error[0].errors[0].message,
+      });
     },
   });
   if (step !== FORM_STEPS.IMAGE_UPLOAD) return null;
@@ -56,7 +75,11 @@ export const UploadImage = () => {
       ) : (
         <p>Drag and drop some files here, or click to select files</p>
       )}
-      {error && <p className="text-red-500">{error}</p>}
+      {errors.image && (
+        <p className="mt-1 text-sm text-red-500">
+          {errors.image?.message as string}
+        </p>
+      )}
     </div>
   );
 };

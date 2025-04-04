@@ -66,6 +66,8 @@ export const getRequiredFieldsForStep = (
         default:
           return [];
       }
+    case FORM_STEPS.IMAGE_UPLOAD:
+      return ["image"];
     default:
       return [];
   }
