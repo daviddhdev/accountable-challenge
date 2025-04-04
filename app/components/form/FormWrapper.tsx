@@ -5,6 +5,7 @@ import { getRequiredFieldsForStep } from "@/utils/functions/getRequiredFieldsFor
 import { getNextStep } from "@/utils/functions/handleSteps";
 import type { MultiForm } from "@/utils/types/formTypes";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
+import useFormPersist from "react-hook-form-persist";
 import { GoBackButton } from "../utils/GoBackButton";
 import { ConditionalFields } from "./ConditionalFields";
 import { CountrySelection } from "./CountrySelection";
@@ -13,7 +14,7 @@ import { UploadImage } from "./UploadImage";
 
 //This will change later so we can read the values from the local storage
 const DEFAULTS: MultiForm = {
-  step: 5,
+  step: 1,
   country: "USA",
   image: "",
   socialSecurityNumber: "",
@@ -26,29 +27,40 @@ export const FormWrapper = () => {
     defaultValues: DEFAULTS,
     mode: "onChange",
   });
+
   const {
     handleSubmit,
     setValue,
     getValues,
     trigger,
+    watch,
     formState: { errors },
   } = methods;
-  const onSubmit: SubmitHandler<MultiForm> = (data) => {
-    console.log(data);
-    console.log("form submitted");
-  };
+
+  useFormPersist("form", {
+    watch,
+    setValue,
+  });
+
   const currentStep = getValues("step");
   const currentCountry = getValues("country");
+
+  const requiredFields = getRequiredFieldsForStep(currentStep, currentCountry);
+  const hasErrors = requiredFields.some(
+    (field) => errors[field as keyof MultiForm]
+  );
+
   const handleNextStep = async () => {
     const isStepValid = await trigger();
     if (isStepValid) {
       setValue("step", getNextStep(getValues("step")));
     }
   };
-  const requiredFields = getRequiredFieldsForStep(currentStep, currentCountry);
-  const hasErrors = requiredFields.some(
-    (field) => errors[field as keyof MultiForm]
-  );
+  const onSubmit: SubmitHandler<MultiForm> = (data) => {
+    console.log(data);
+    console.log("form submitted");
+  };
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
