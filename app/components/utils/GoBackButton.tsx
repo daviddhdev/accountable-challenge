@@ -25,7 +25,7 @@ export const GoBackButton = () => {
     <button
       type="button"
       onClick={goBack}
-      className="inline-flex items-center py-2 text-sm font-medium text-secondary hover:text-foreground transition-colors duration-200"
+      className="inline-flex items-center py-2 mb-4 text-sm font-medium text-secondary hover:text-foreground transition-colors duration-200"
     >
       <svg
         className="w-4 h-4 mr-2"

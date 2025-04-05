@@ -72,12 +72,12 @@ export const FormWrapper = () => {
         <UploadImage />
         <ReviewAndSubmition isSubmitted={isSubmitted} />
         {currentStep !== FORM_STEPS.REVIEW && (
-          <div>
+          <div className="flex justify-end">
             <button
               type="button"
               onClick={handleNextStep}
               disabled={hasErrors}
-              className="inline-flex items-center py-2 text-sm font-medium text-secondary hover:text-foreground transition-colors duration-200"
+              className="inline-flex items-center py-2 px-4 text-sm font-medium text-secondary hover:text-foreground transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Next
             </button>
