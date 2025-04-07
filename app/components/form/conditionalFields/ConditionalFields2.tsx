@@ -18,6 +18,7 @@ export const ConditionalFields2 = () => {
               message: "State must be 2 characters",
             },
           }}
+          placeholder="XX"
         />
       </div>
     );
@@ -34,6 +35,7 @@ export const ConditionalFields2 = () => {
               message: "Visa Type must be 2 characters",
             },
           }}
+          placeholder="XX"
         />
       </div>
     );
@@ -50,6 +52,7 @@ export const ConditionalFields2 = () => {
               message: "State must be 2 characters",
             },
           }}
+          placeholder="XX"
         />
       </div>
     );
@@ -66,6 +69,7 @@ export const ConditionalFields2 = () => {
               message: "Bundesland must be 2 characters",
             },
           }}
+          placeholder="XX"
         />
       </div>
     );
@@ -82,6 +86,7 @@ export const ConditionalFields2 = () => {
               message: "Province must be 2 characters",
             },
           }}
+          placeholder="XX"
         />
       </div>
     );

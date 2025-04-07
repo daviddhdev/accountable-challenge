@@ -20,6 +20,7 @@ export const ConditionalFields1 = () => {
               message: "Please enter a valid SSN (XXX-XX-XXXX)",
             },
           }}
+          placeholder="XXX-XX-XXXX"
         />
       </div>
     );
@@ -37,6 +38,7 @@ export const ConditionalFields1 = () => {
               message: "Please enter a valid Emirates ID (784-XXXX-XXXXXXX-X)",
             },
           }}
+          placeholder="784-XXXX-XXXXXXX-X"
         />
       </div>
     );
@@ -54,6 +56,7 @@ export const ConditionalFields1 = () => {
               message: "Please enter a valid 12-digit Aadhaar Number",
             },
           }}
+          placeholder="123456789012"
         />
       </div>
     );
@@ -71,6 +74,7 @@ export const ConditionalFields1 = () => {
               message: "Please enter a valid 11-digit Tax ID",
             },
           }}
+          placeholder="12345678901"
         />
       </div>
     );
@@ -89,6 +93,7 @@ export const ConditionalFields1 = () => {
               message: "Please enter a valid SIN (XXX-XXX-XXX)",
             },
           }}
+          placeholder="XXX-XXX-XXX"
         />
       </div>
     );

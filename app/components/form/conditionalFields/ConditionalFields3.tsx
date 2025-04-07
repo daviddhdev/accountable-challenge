@@ -18,6 +18,7 @@ export const ConditionalFields3 = () => {
               message: "Zip Code must be 5 digits",
             },
           }}
+          placeholder="12345"
         />
       </div>
     );
@@ -34,6 +35,7 @@ export const ConditionalFields3 = () => {
               message: "City must be less than 20 characters",
             },
           }}
+          placeholder="Madrid"
         />
       </div>
     );
@@ -50,6 +52,7 @@ export const ConditionalFields3 = () => {
               message: "PIN Code must be 6 digits",
             },
           }}
+          placeholder="123456"
         />
       </div>
     );
@@ -66,6 +69,7 @@ export const ConditionalFields3 = () => {
               message: "Postal Code must be 5 digits",
             },
           }}
+          placeholder="12345"
         />
       </div>
     );
@@ -82,6 +86,7 @@ export const ConditionalFields3 = () => {
               message: "Postal Code must be 5 digits",
             },
           }}
+          placeholder="12345"
         />
       </div>
     );
